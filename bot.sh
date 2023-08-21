@@ -91,7 +91,7 @@ dispatch() {
         if [[ $total_received -eq $chunk_count ]]; then
             total_member_count=$(cat $nonce/* | paste -sd+ - | bc)
             dbg "we are done for now. total members: $total_member_count"
-            if is_prime $total_member_count||true; then
+            if is_prime $total_member_count; then
                 dbg "prime number woohoooo sending message to $ANNOUNCEMENT"
                 curl -X POST -H "Authorization: Bot $TOKEN" https://discord.com/api/v10/channels/$ANNOUNCEMENT/messages -F payload_json='{"content": "WOOOO BABY A PRIME NUMBER!! WE ARE NOW '$total_member_count' MEMBERS!!!! WOOO THATS WHAT IVE BEEN WAITING FOR"}' >/dev/null 2>/dev/null
             fi
